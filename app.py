@@ -15,8 +15,11 @@ CREDS_FILE = "service_account.json"
 @st.cache_resource
 def init_gsheet():
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+    st.write("🔐 Starting credential loading...")
     creds = ServiceAccountCredentials.from_json_keyfile_dict(dict(st.secrets["gcp"]), scope)
+    st.write("✅ Credentials loaded, authorizing gspread...")
     client = gspread.authorize(creds)
+    st.write("📄 Gspread client initialized")  # Final checkpoint
     return client
 
 def log_workout(date, exercise, sets, reps, weight):
