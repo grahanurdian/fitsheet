@@ -9,7 +9,7 @@ import json
 SHEET_NAME = "FitSheet"
 WORKOUT_SHEET = "Workout Log"
 METRICS_SHEET = "Body Metrics"
-CREDS_FILE = "service_account.json"
+# CREDS FILE
 
 # ---------- GOOGLE SHEETS SETUP ----------
 @st.cache_resource
