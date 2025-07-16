@@ -13,14 +13,29 @@ CREDS_FILE = "service_account.json"
 
 # ---------- GOOGLE SHEETS SETUP ----------
 @st.cache_resource
+@st.cache_resource
 def init_gsheet():
-    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-    st.write("🔐 Starting credential loading...")
-    creds = ServiceAccountCredentials.from_json_keyfile_dict(dict(st.secrets["gcp"]), scope)
-    st.write("✅ Credentials loaded, authorizing gspread...")
-    client = gspread.authorize(creds)
-    st.write("📄 Gspread client initialized")  # Final checkpoint
-    return client
+    try:
+        st.write("🔐 Starting gsheet init...")
+
+        scope = [
+            "https://spreadsheets.google.com/feeds",
+            "https://www.googleapis.com/auth/drive"
+        ]
+
+        creds = ServiceAccountCredentials.from_json_keyfile_dict(
+            dict(st.secrets["gcp"]), scope
+        )
+        st.write("✅ Credentials loaded")
+
+        client = gspread.authorize(creds)
+        st.write("📄 Google Sheets authorized")
+
+        return client
+    except Exception as e:
+        st.error(f"❌ Error initializing Google Sheets: {e}")
+        raise
+
 
 def log_workout(date, exercise, sets, reps, weight):
     client = init_gsheet()
