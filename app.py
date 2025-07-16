@@ -13,7 +13,6 @@ CREDS_FILE = "service_account.json"
 
 # ---------- GOOGLE SHEETS SETUP ----------
 @st.cache_resource
-@st.cache_resource
 def init_gsheet():
     try:
         st.write("🔐 Starting gsheet init...")
