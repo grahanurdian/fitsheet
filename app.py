@@ -3,6 +3,7 @@ import pandas as pd
 from datetime import date
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+import json
 
 # ---------- CONFIGURATION ----------
 SHEET_NAME = "FitSheet"
@@ -14,7 +15,7 @@ CREDS_FILE = "service_account.json"
 @st.cache_resource
 def init_gsheet():
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-    creds = ServiceAccountCredentials.from_json_keyfile_name(CREDS_FILE, scope)
+    creds = ServiceAccountCredentials.from_json_keyfile_dict(dict(st.secrets["gcp"]), scope)
     client = gspread.authorize(creds)
     return client
 
