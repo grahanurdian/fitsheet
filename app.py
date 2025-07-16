@@ -186,4 +186,5 @@ def main():
     st.caption("Made with 💪 using Python, Streamlit & Google Sheets")
 
 # ---------- RUN ----------
-main()
+if __name__ == "__main__":
+    main()
